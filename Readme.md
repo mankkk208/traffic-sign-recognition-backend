@@ -1,0 +1,27 @@
+# Traffic Sign Recognition
+
+## Description
+This project is designed to recognize traffic signs using machine learning techniques. It aims to improve road safety by providing real-time recognition of traffic signs for drivers.
+
+## Installation Instructions
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mankkk208/Traffic-Sign-Recognition
+   ```
+2. Download dataset 
+   Dataset can be downloaded from https://www.kaggle.com/datasets/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign?resource=download
+   Extract the archive to the `data` directory.
+3. Navigate to the project directory:
+   ```bash
+   cd traffic_sign_recognition
+   ```
+4. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage
+To run the traffic sign recognition model, execute the following command:
+```bash
+fastapi dev
+```
