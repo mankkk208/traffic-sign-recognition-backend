@@ -21,7 +21,7 @@ This project is designed to recognize traffic signs using machine learning techn
    ```
 
 ## Usage
-First you need to run the `train.py` to train and create our models.
+First you need create `models` folder and then run the `train.py` to train and create our models.
 You can run `evaluate.py` to evaluate the models.
 To run the traffic sign recognition model, execute the following command:
 ```bash
