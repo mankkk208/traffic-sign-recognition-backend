@@ -8,21 +8,22 @@ This project is designed to recognize traffic signs using machine learning techn
    ```bash
    git clone https://github.com/mankkk208/Traffic-Sign-Recognition
    ```
-2. Download dataset 
-   Dataset can be downloaded from https://www.kaggle.com/datasets/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign?resource=download
-   Extract the archive to the `data` directory.
-3. Navigate to the project directory:
+2. Download datasets 
+   Dataset for cnn model can be downloaded from https://www.kaggle.com/datasets/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign?resource=download
+   Extract the archive to the `data\cnn` directory.
+   Dataset for cnn model can be downloaded from https://www.kaggle.com/datasets/maitam/vietnamese-traffic-signs?select=classes.txt
+   Extract the archive to the `data\yolo` directory.
+4. Navigate to the project directory:
    ```bash
    cd traffic_sign_recognition
    ```
-4. Install the required dependencies:
+5. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
 ## Usage
-First you need create `models` folder and then run the `train.py` to train and create our models.
-You can run `evaluate.py` to evaluate the models.
+First you need to run the `train.py` and `yolo_train.py` to train and create our models.
 To run the traffic sign recognition model, execute the following command:
 ```bash
 fastapi dev
