@@ -13,6 +13,7 @@ This project is designed to recognize traffic signs using machine learning techn
    Extract the archive to the `data\cnn` directory.
    
    Dataset for cnn model can be downloaded from https://github.com/makerhanoi/via-datasets/releases/download/v1.0/via-trafficsign-20210321.zip
+   or https://www.kaggle.com/datasets/lvnduy/street-traffic-signs-in-vietnam-coco
    Extract the archive to the `data\yolo` directory.
 4. Navigate to the project directory:
    ```bash
