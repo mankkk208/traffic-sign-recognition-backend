@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Sign Recognition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Traffic Sign Recognition</h1>
+
+        <!-- Upload image -->
+        <div class="upload-section">
+            <input type="file" id="imageUpload" accept="image/*">
+            <div id="uploadedImagePreview"></div>
+        </div>
+
+        <!-- Buttons to trigger prediction -->
+        <button id="yoloPredictButton" type="button">Check YOLO</button>
+        <button id="geminiPredictButton" type="button">Check Gemini</button>
+        <button id="gptPredictButton" type="button">Check GPT</button>
+
+        <!-- Result display -->
+        <div class="result">
+            <textarea id="resultText" rows="5" cols="40" readonly></textarea>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
