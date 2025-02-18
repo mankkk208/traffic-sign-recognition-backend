@@ -41,7 +41,6 @@ async def predict(file: UploadFile = File(...)):
         prediction = model.predict(preprocessed_image)
         class_id = np.argmax(prediction)
         predicted_sign = CLASS_NAMES[class_id] if class_id < len(CLASS_NAMES) else "Unknown sign"
-        
-        return JSONResponse(content={"Predicted sign": predicted_sign})
+        return JSONResponse(content={"Predicted sign": f"Tên biển báo: {predicted_sign}"})
     except Exception as e:
         return JSONResponse(status_code=400, content={"error": str(e)})
