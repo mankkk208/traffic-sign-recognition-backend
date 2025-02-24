@@ -4,8 +4,7 @@ import cv2
 import numpy as np
 
 class YOLODetector:
-    def __init__(self, model_path, conf_threshold=0.05, nms_threshold=0.3):
-    #def __init__(self, model_path, conf_threshold=0.5, nms_threshold=0.4):
+    def __init__(self, model_path, conf_threshold=0.7, nms_threshold=0.4):
         # Load pre-trained YOLOv8 model
         self.model = YOLO(model_path)
         self.conf_threshold = conf_threshold
@@ -19,13 +18,13 @@ class YOLODetector:
         print(f"✅ Image loaded successfully: {image_path}, Shape: {image.shape}")
 
         # Resize ảnh cho phù hợp với yêu cầu của YOLO
-        image_resized = cv2.resize(image, (640, 640))  
-        cv2.imwrite("resized_image.jpg", image_resized)  # Lưu ảnh đã resize
+        image_resized = cv2.resize(image, (320, 320))  
+        #cv2.imwrite("resized_image.jpg", image_resized)  # Lưu ảnh đã resize
         
         # Dự đoán với YOLO
-        #results = self.model(image_path)
+        results = self.model(image_resized)
         # Dự đoán với YOLO
-        results = self.model("resized_image.jpg")
+        #results = self.model("resized_image.jpg")
 
         # Xử lý kết quả trả về
         predictions = []
