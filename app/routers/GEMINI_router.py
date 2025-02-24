@@ -42,6 +42,15 @@ safety_settings = [
     SafetySetting(category=SafetySetting.HarmCategory.HARM_CATEGORY_HARASSMENT, threshold=SafetySetting.HarmBlockThreshold.OFF),
 ]
 
+system_prompt = """
+Bạn là AI nhận diện biển báo giao thông Việt Nam. Hãy dự đoán tên các biển báo trong ảnh.
+Chỉ cần nói ra tên biển báo như sau:
+Tên biển báo 1: ...
+Tên biển báo 2: ...
+Tên biển báo n: ...
+Nếu bạn không nhận diện được biển báo, hãy trả lời 'Không nhận diện được biển báo'.
+"""
+
 @gemini_router.post("/predict/")
 async def predict_gemini(file: UploadFile = File(...)):
     try:
@@ -51,7 +60,7 @@ async def predict_gemini(file: UploadFile = File(...)):
         # ===== 7. Gửi ảnh đến model để dự đoán =====
         chat = model.start_chat()
         response = chat.send_message([
-            Part.from_text("Bạn là AI nhận diện biển báo giao thông Việt Nam. Hãy dự đoán tên các biển báo trong ảnh, trong ảnh có thể có một hoặc nhiều biển báo. Chỉ cần nói ra tên biển báo"),
+            Part.from_text(system_prompt),
             Part.from_data(image_bytes, mime_type="image/jpeg"),
         ], generation_config=generation_config, safety_settings=safety_settings)
 
