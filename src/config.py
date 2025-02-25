@@ -8,6 +8,14 @@ DATA_DIR = os.path.join(BASE_DIR, 'data')
 MODEL_DIR = os.path.join(BASE_DIR, 'models')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'outputs')
 
+# Cấu hình Google Cloud
+PROJECT_ID = "681792955708"  # 🔹 ID của dự án
+LOCATION = "us-central1"      # 🔹 Location của model
+ENDPOINT_ID = "7017585685280325632"  # 🔹 Endpoint của model fine-tune
+
+# Cấu hình OpenAI
+GPT_API_KEY = "your-api-key" 
+
 # Model parameters
 INPUT_SHAPE = (32, 32, 3)
 NUM_CLASSES = 43

@@ -1,7 +1,9 @@
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
-from src.gcs import upload_to_gcs, delete_from_gcs
+from src.gcs import upload_to_gcs
+import io
 import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
 
 
 # Bucket của bạn trên GCS
@@ -11,16 +13,13 @@ gcs_router = APIRouter()
 
 @gcs_router.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
-    file_location = f"temp_{file.filename}"
-    with open(file_location, "wb") as f:
-        f.write(await file.read())
-    
-    gcs_url = upload_to_gcs(BUCKET_NAME, file_location, file.filename)
-    os.remove(file_location)
-    
-    return JSONResponse(content={"url": gcs_url})
+    file_bytes = await file.read()  # Đọc dữ liệu file vào biến bytes
+    file_stream = io.BytesIO(file_bytes)  # Chuyển đổi thành stream để upload
 
-@gcs_router.delete("/delete/{file_name}")
-async def delete_file(file_name: str):
-    delete_from_gcs(BUCKET_NAME, file_name)
-    return {"message": f"File {file_name} deleted from GCS."}
+    gcs_url = upload_to_gcs(BUCKET_NAME, file_stream, file.filename)
+
+    if gcs_url:
+        return JSONResponse(content={"url": gcs_url})  # Đổi từ "public_url" thành "url" cho đồng nhất với JS
+    else:
+        print("Lỗi upload GCS")
+        return JSONResponse(content={"message": "Lỗi upload GCS"}, status_code=500)

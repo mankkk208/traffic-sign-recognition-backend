@@ -1,13 +1,17 @@
-from pydantic import BaseModel
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi.responses import JSONResponse
+import httpx
 from openai import OpenAI
 from src.config import GPT_API_KEY
-from fastapi.responses import JSONResponse
-# Khởi tạo router cho GPT
-gpt_router = APIRouter()
+import io
+import os
+import time
 
-# Client OpenAI
+# Khởi tạo router và OpenAI client
+gpt_router = APIRouter()
 client = OpenAI(api_key=GPT_API_KEY)
+GCS_UPLOAD_URL = "http://localhost:8000/gcs/upload/"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
 
 # System prompt
 system_prompt = """
@@ -20,24 +24,43 @@ Nếu bạn không nhận diện được biển báo, hãy trả lời 'Không 
 
 user_prompt = "Cho tôi biết tên các biển báo giao thông Việt Nam trong ảnh."
 
-# Định nghĩa request body bằng Pydantic
-class ImageRequest(BaseModel):
-    image_url: str  # Yêu cầu image_url phải là một chuỗi
-
 @gpt_router.post("/predict/")
-def predict_gpt(request: ImageRequest):
+async def predict_gpt(file: UploadFile = File(...)):
     try:
+        # Thêm timestamp vào tên file
+        timestamp = int(time.time())
+        file_name = f"{timestamp}_{file.filename}"
+        
+        # Đọc file vào RAM thay vì lưu trên ổ đĩa
+        file_stream = io.BytesIO(await file.read())
+        
+        # Upload ảnh lên GCS với file stream
+        files = {"file": (file_name, file_stream, file.content_type)}
+        async with httpx.AsyncClient() as http_client:
+            gcs_response = await http_client.post(
+                GCS_UPLOAD_URL,
+                files=files,
+                timeout=30.0
+            )
+            
+            if gcs_response.status_code != 200:
+                raise HTTPException(status_code=500, detail="Failed to upload image to GCS")
+            
+            image_url = gcs_response.json()["url"]
+
+        # Gửi URL đến GPT để dự đoán
         response = client.chat.completions.create(
             model="ft:gpt-4o-2024-08-06:has::B2BLb0gS",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
-                {"role": "user", "content": f"image_url:{request.image_url}"}
+                {"role": "user", "content": f"image_url:{image_url}"}
             ]
         )
+
         prediction_text = response.choices[0].message.content
-        print(f"prediction: {prediction_text}")
-        # Trả về JSON hợp lệ
+        print(f"Prediction: {prediction_text}")
         return JSONResponse(content={"prediction": prediction_text})
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
