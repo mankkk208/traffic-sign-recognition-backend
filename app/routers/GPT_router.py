@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, UploadFile, File
 from fastapi.responses import JSONResponse
 import httpx
 from openai import OpenAI
-from src.config import GPT_API_KEY
+from test.config import GPT_API_KEY
 import io
 import os
 import time

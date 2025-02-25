@@ -7,8 +7,8 @@ from PIL import Image
 import httpx
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
-from src.yolo.yolo_detector import YOLODetector
-from src.config import MODEL_DIR
+from test.yolo.yolo_detector import YOLODetector
+from test.config import MODEL_DIR
 
 CONFIDENCE_THRESHOLD = 0.8
 GPT_PREDICT_URL = "http://localhost:8000/gpt/predict/"
