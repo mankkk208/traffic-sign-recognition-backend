@@ -1,0 +1,6 @@
+.venv/
+app/__pycache__/*pyc
+app/routers/*pyc
+app/routers/*pyo
+test/__pycache__/*pyc
+test/config.py

@@ -4,8 +4,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Các paths
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-MODEL_DIR = os.path.join(BASE_DIR, 'models')
+DATA_DIR = os.path.join(BASE_DIR, 'app/data')
+MODEL_DIR = os.path.join(BASE_DIR, 'app/models')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'outputs')
 
 # Cấu hình Google Cloud
