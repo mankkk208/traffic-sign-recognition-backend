@@ -1,12 +1,15 @@
-from openai import OpenAI
-import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from src.config import GPT_API_KEY
-client = OpenAI(api_key=GPT_API_KEY)
+import sys
+
+from openai import OpenAI
+
+sys.path.append(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', '..')))
+
+client = OpenAI(api_key="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")
 
 # Upload file dữ liệu huấn luyện (training data)
-file_path = "data/gpt/training_data300.jsonl"
+file_path = "app/data/gpt/training_data300.jsonl"
 
 # truy câp vào Files API
 files = client.files
@@ -24,6 +27,15 @@ file_id = file.id  # Accessing the id attribute directly
 fine_tune_job = client.fine_tuning.jobs.create(
     training_file=file_id,  # Use the file ID here
     model="gpt-4o-2024-08-06",  # Ensure this is the correct model ID
+    integrations=[
+        {
+            "type": "wandb",
+            "wandb": {
+                "project": "OpenAI",
+                "tags": ["openai"]
+            }
+        }
+    ]
 )
 
 print(f"Fine-tuning job created: {fine_tune_job.id}")
