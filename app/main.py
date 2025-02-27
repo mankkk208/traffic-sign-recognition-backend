@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers.CNN_router import cnn_router
-from app.routers.YOLO_router import yolo_router
+
+from app.routers.GCS_router import gcs_router
 from app.routers.GEMINI_router import gemini_router
 from app.routers.GPT_router import gpt_router
-from app.routers.GCS_router import gcs_router
+from app.routers.YOLO_router import yolo_router
 
 app = FastAPI()
 
@@ -26,11 +26,11 @@ app.add_middleware(
 )
 
 # Registering the routers
-app.include_router(cnn_router, prefix="/cnn")
 app.include_router(yolo_router, prefix="/yolo")
 app.include_router(gemini_router, prefix="/gemini")
 app.include_router(gpt_router, prefix="/gpt")
 app.include_router(gcs_router, prefix="/gcs")
+
 
 @app.get("/")
 async def root():
