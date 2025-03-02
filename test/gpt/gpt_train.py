@@ -6,7 +6,8 @@ from openai import OpenAI
 sys.path.append(os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..')))
 
-client = OpenAI(api_key="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")
+#client = OpenAI(api_key="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")
+client = OpenAI(api_key="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")
 
 # Upload file dữ liệu huấn luyện (training data)
 file_path = "app/data/gpt/training_data300.jsonl"
