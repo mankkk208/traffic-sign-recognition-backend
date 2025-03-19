@@ -28,11 +28,18 @@ async def predict_yolo(file: UploadFile = File(...)):
         image = Image.open(file_buffer)
         image_np = np.array(image)
         
-        if image_np.shape[-1] == 4:
-            image_np = cv2.cvtColor(image_np, cv2.COLOR_RGBA2RGB)
-        elif len(image_np.shape) == 2:
+        if image_np is None:
+            raise HTTPException(status_code=400, detail="Không thể đọc ảnh")
+        if len(image_np.shape) == 2:  # Grayscale -> BGR
             image_np = cv2.cvtColor(image_np, cv2.COLOR_GRAY2BGR)
-        image_np = cv2.resize(image_np, (320, 320))
+        elif image_np.shape[-1] == 4:  # RGBA -> BGR
+            image_np = cv2.cvtColor(image_np, cv2.COLOR_RGBA2BGR)
+        
+        # Chuyển đổi từ BGR sang HSV
+        image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2HSV)
+        
+        # Resize ảnh
+        image_np = cv2.resize(image_np, (640, 640))
         
         # Dự đoán với YOLO
         results = yolo_detector.model(image_np)
