@@ -95,7 +95,7 @@ nbclient==0.10.2
 nbconvert==7.16.6
 nbformat==5.10.4
 networkx==3.4.2
-numpy==1.23.5
+numpy==1.26.4
 nvidia-cublas-cu11==2022.4.8
 nvidia-cublas-cu117==11.10.1.25
 nvidia-cuda-nvrtc-cu11==2022.4.8

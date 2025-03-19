@@ -2,36 +2,39 @@
 import cv2
 import numpy as np
 import os
-from PIL import Image
 from glob import glob
 
-# Thư mục ảnh gốc
-#IMAGE_DIR = "images/train"
-#SAVE_DIR = "data/yolo/images/train"
-IMAGE_DIR = "images"
-SAVE_DIR = "data/yolo/images/val"
+# Đường dẫn thư mục
+IMAGE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\augmented\val\images"
+SAVE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\processed\images\val"
 
 # Tạo thư mục lưu ảnh đã tiền xử lý
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 def preprocess_image(image_path):
-    """Tiền xử lý ảnh giống với API"""
-    image = Image.open(image_path)  # Mở ảnh bằng PIL
-    image = np.array(image)  # Chuyển thành numpy array
+    """Tiền xử lý ảnh: Chuyển RGB -> HSV"""
+    image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)  # Đọc ảnh gốc
 
-    # Đảm bảo ảnh có 3 kênh (RGB)
-    if image.shape[-1] == 4:  # Nếu ảnh có 4 kênh (RGBA)
-        image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
-    elif image.shape[-1] == 1:  # Nếu ảnh là grayscale
+    # Xử lý ảnh RGBA hoặc grayscale nếu cần
+    if image is None:
+        print(f"Không thể đọc ảnh: {image_path}")
+        return None
+    if len(image.shape) == 2:  # Grayscale -> BGR
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+    elif image.shape[-1] == 4:  # RGBA -> BGR
+        image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
 
-    normalized_image = (image / 255.0) * 255  # Chuẩn hóa giống API (để giữ định dạng uint8)
+    # Chuyển đổi từ BGR sang HSV
+    hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
-    return normalized_image.astype(np.uint8)  # Chuyển về kiểu uint8 để lưu
+    return hsv_image
 
 # Lặp qua toàn bộ ảnh và xử lý
 image_paths = glob(os.path.join(IMAGE_DIR, "*.jpg"))  # Lấy danh sách ảnh
 for img_path in image_paths:
     processed_img = preprocess_image(img_path)
-    filename = os.path.basename(img_path)
-    cv2.imwrite(os.path.join(SAVE_DIR, filename), processed_img)  # Lưu ảnh đã xử lý
+    if processed_img is not None:
+        filename = os.path.basename(img_path)
+        cv2.imwrite(os.path.join(SAVE_DIR, filename), processed_img)  # Lưu ảnh đã xử lý
+
+print(f"Xử lý hoàn tất! Ảnh HSV được lưu tại {SAVE_DIR}")
