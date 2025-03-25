@@ -2,16 +2,21 @@ from fastapi import APIRouter, HTTPException, UploadFile, File
 from fastapi.responses import JSONResponse
 import httpx
 from openai import OpenAI
-from test.config import GPT_API_KEY
 import io
 import os
 import time
+from dotenv import load_dotenv
+
+# Load biến môi trường từ file .env
+load_dotenv()
+# Lấy OpenAI API Key
+GPT_API_KEY = os.getenv("GPT_API_KEY")
 
 # Khởi tạo router và OpenAI client
 gpt_router = APIRouter()
 client = OpenAI(api_key=GPT_API_KEY)
 GCS_UPLOAD_URL = "http://localhost:8000/gcs/upload/"
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gen-lang-client-0788085518-6a37c52bd548.json"
 
 # System prompt
 system_prompt = """

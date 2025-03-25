@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 
 class YOLODetector:
-    def __init__(self, model_path, conf_threshold=0.7, nms_threshold=0.4):
+    def __init__(self, model_path, conf_threshold=0.8, nms_threshold=0.4):
         # Load pre-trained YOLOv8 model
         self.model = YOLO(model_path)
         self.conf_threshold = conf_threshold

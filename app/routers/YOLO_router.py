@@ -7,14 +7,13 @@ from PIL import Image
 import httpx
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
-from test.yolo.yolo_detector import YOLODetector
-from test.config import MODEL_DIR
+from app.routers.yolo_detector import YOLODetector
 
 CONFIDENCE_THRESHOLD = 0.8
 GPT_PREDICT_URL = "http://localhost:8000/gpt/predict/"
 
 # Load YOLO model
-yolo_model_path = os.path.join(MODEL_DIR, 'yolo/yolov11s_finetune/weights/best.pt')
+yolo_model_path = 'app/models/yolo/yolov11m_finetune230325/weights/best.pt'
 yolo_detector = YOLODetector(model_path=yolo_model_path, conf_threshold=CONFIDENCE_THRESHOLD, nms_threshold=0.4)
 
 yolo_router = APIRouter()

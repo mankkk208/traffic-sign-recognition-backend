@@ -1,6 +1,9 @@
 from openai import OpenAI
 import time
-from src.config import GPT_API_KEY
+import os
+from dotenv import load_dotenv
+load_dotenv()
+GPT_API_KEY = os.getenv("GPT_API_KEY")
 client = OpenAI(api_key=GPT_API_KEY)
 
 def check_fine_tuning_status(job_id):

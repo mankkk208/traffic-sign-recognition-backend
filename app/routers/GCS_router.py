@@ -1,13 +1,15 @@
 from fastapi import APIRouter, File, UploadFile
 from fastapi.responses import JSONResponse
-from test.gcs import upload_to_gcs
+from app.routers.gcs import upload_to_gcs
 import io
 import os
+from dotenv import load_dotenv
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
 
+load_dotenv()
 
 # Bucket của bạn trên GCS
-BUCKET_NAME = "traffic-sign-recognition-storage"
+BUCKET_NAME = os.getenv("BUCKET_NAME")
 
 gcs_router = APIRouter()
 

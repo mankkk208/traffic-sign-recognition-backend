@@ -2,7 +2,11 @@ from openai import OpenAI
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-from src.config import GPT_API_KEY
+from dotenv import load_dotenv
+
+load_dotenv()
+GPT_API_KEY = os.getenv("GPT_API_KEY")
+
 client = OpenAI(api_key=GPT_API_KEY)
 
 # Upload file dữ liệu huấn luyện (training data)

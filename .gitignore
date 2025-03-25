@@ -6,3 +6,5 @@ app/data/
 test/mapillary_download_json.py
 test/testcuda.py
 test/cse_download.py
+.env
+gen-lang-client-0788085518-6a37c52bd548.json

@@ -6,11 +6,16 @@ import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
 # ===== 1. Cấu hình Google Cloud =====
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gen-lang-client-0788085518-6a37c52bd548.json"
 
-PROJECT_ID = "681792955708"  # 🔹 Thay bằng ID của dự án
-LOCATION = "us-central1"      # 🔹 Thay bằng location của model
-ENDPOINT_ID = "7017585685280325632"  # 🔹 Thay bằng endpoint của model fine-tune
+from dotenv import load_dotenv
+
+# Load biến môi trường từ file .env
+load_dotenv()
+
+PROJECT_ID = os.getenv("PROJECT_ID")
+LOCATION = os.getenv("LOCATION")
+ENDPOINT_ID = os.getenv("ENDPOINT_ID")
 
 # ===== 2. Khởi tạo Vertex AI =====
 vertexai.init(
