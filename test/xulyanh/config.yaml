@@ -1,0 +1,11 @@
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+train: C:\Users\Lenovo\Desktop\817\Data\processed\images\train # 8130 images
+val: C:\Users\Lenovo\Desktop\817\Data\processed\images\val # 597 images
+# number of classes
+nc: 5
+
+# class names
+names: [ 'Cấm đi ngược chiều', 'Phải đi vòng sang bên phải', 'Cấm đỗ xe', 'Cấm dừng xe và đỗ xe', 'Vị trí người đi bộ sang ngang']
+
+# Định nghĩa đường dẫn đến file hyperparameter (hyp)
+hyp: = r"C:\Users\Lenovo\Desktop\817\Data\processed\hyp.yaml"
