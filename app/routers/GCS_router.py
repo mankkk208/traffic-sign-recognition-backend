@@ -9,7 +9,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lan
 load_dotenv()
 
 # Bucket của bạn trên GCS
-BUCKET_NAME = os.getenv("BUCKET_NAME")
+BUCKET_NAME = "traffic-sign-recognition-storage"
 
 gcs_router = APIRouter()
 

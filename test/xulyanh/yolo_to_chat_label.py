@@ -1,6 +1,6 @@
 import os
 
-class_location = r"C:\Users\Lenovo\Desktop\817\Data\classes.txt"
+class_location = r"C:\Users\Lenovo\Desktop\817\Data\classes14.txt"
 
 
 # Đọc danh sách class từ file class.txt
@@ -32,6 +32,6 @@ def process_folder(label_folder, output_folder):
             convert_label_file(label_path, output_path)
 
 # Thay đổi đường dẫn cho phù hợp
-label_folder = r"C:\Users\Lenovo\Desktop\817\Data\val\labels"   # Thư mục chứa file labels cũ
-output_folder = r"C:\Users\Lenovo\Desktop\817\Data\val\chat_labels"  # Thư mục chứa file labels mới
+label_folder = "app\data\gemini\ChatData\labels"   # Thư mục chứa file labels cũ
+output_folder = "app\data\gemini\ChatData\chat_labels"  # Thư mục chứa file labels mới
 process_folder(label_folder, output_folder)
