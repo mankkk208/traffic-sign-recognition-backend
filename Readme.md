@@ -20,6 +20,9 @@ This project is designed to recognize traffic signs using machine learning techn
    pip install -r requirements.txt
    ```
 
+# Chạy container
+docker run -p 8000:8000 mankkk/traffic-sign-recognition
+
 ## Usage
 First you need to run the `yolo_train.py` to train and create our models.
 To run the traffic sign recognition model, execute the following command:

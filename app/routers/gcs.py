@@ -3,7 +3,7 @@ import os
 import io
 
 # ===== 1. Cấu hình Google Cloud =====
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "app/gen-lang-client-0788085518-6a37c52bd548.json"
 
 # Khởi tạo client GCS
 def get_gcs_client():

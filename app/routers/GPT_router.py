@@ -16,7 +16,7 @@ GPT_API_KEY = os.getenv("GPT_API_KEY")
 gpt_router = APIRouter()
 client = OpenAI(api_key=GPT_API_KEY)
 GCS_UPLOAD_URL = "http://localhost:8000/gcs/upload/"
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "app/gen-lang-client-0788085518-6a37c52bd548.json"
 
 # System prompt
 system_prompt = """

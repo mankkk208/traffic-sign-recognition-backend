@@ -2,7 +2,7 @@ import os
 import json
 
 # Đường dẫn thư mục chứa ảnh và nhãn
-image_folder = "app/data/gemini/ChatData/images"
+image_folder = "app/data/gemini/ChatData/images800"
 label_folder = "app/data/gemini/ChatData/labels"
 
 # Đường dẫn file JSONL đầu ra
@@ -12,7 +12,7 @@ jsonl_file = "app/data/gemini/train_data_800.jsonl"
 os.makedirs(os.path.dirname(jsonl_file), exist_ok=True)
 
 # Bucket URI trên Google Cloud Storage
-BUCKET_URI = "gs://traffic-recognition-800/images/"
+BUCKET_URI = "gs://traffic_recognition/images800/"
 
 # Hàm tạo đường dẫn fileUri cho ảnh trên GCS
 def get_gcs_uri(filename):

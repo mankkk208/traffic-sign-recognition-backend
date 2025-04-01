@@ -5,7 +5,7 @@ import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
 # ===== 1. Cấu hình Google Cloud =====
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "app/gen-lang-client-0788085518-6a37c52bd548.json"
 
 PROJECT_ID = "681792955708"  # 🔹 ID của dự án
 LOCATION = "us-central1"      # 🔹 Location của model

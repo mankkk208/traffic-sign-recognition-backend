@@ -10,7 +10,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gen-lang-client-0788085518-6a37c
 
 PROJECT_ID = "681792955708"  # 🔹 Thay bằng ID của dự án
 LOCATION = "us-central1"      # 🔹 Thay bằng location của model
-ENDPOINT_ID = "7017585685280325632"  # 🔹 Thay bằng endpoint của model fine-tune
+ENDPOINT_ID = "7468486607738241024"  # 🔹 Thay bằng endpoint của model fine-tune
 
 # ===== 2. Khởi tạo Vertex AI =====
 vertexai.init(
@@ -43,12 +43,10 @@ safety_settings = [
 ]
 
 system_prompt = """
-Bạn là AI nhận diện biển báo giao thông Việt Nam. Hãy dự đoán tên các biển báo trong ảnh.
-Chỉ cần nói ra tên biển báo như sau:
-Tên biển báo 1: ...
-Tên biển báo 2: ...
-Tên biển báo n: ...
-Nếu bạn không nhận diện được biển báo, hãy trả lời 'Không nhận diện được biển báo'.
+Bạn là AI chuyên nhận diện biển báo giao thông Việt Nam. Trong ảnh có thể có một hoặc nhiều biển báo giao thông Việt Nam. Hãy cho tôi biết tên của các biển báo này. Câu trả lời của bạn phải chính xác với tên chuẩn của biển báo giao thông Việt Nam.
+Nếu không nhận diện được biển báo nào, hãy trả lời 'Không có biển báo'.
+Câu trả lời theo format như sau: 
+Biển báo 1 ..., Biển báo 2 ..., Biển báo 3 ..., ...
 """
 
 @gemini_router.post("/predict/")
