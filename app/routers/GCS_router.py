@@ -4,7 +4,7 @@ from app.routers.gcs import upload_to_gcs
 import io
 import os
 from dotenv import load_dotenv
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = r"C:\Users\Lenovo\Desktop\gen-lang-client-0788085518-6a37c52bd548.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "app/gen-lang-client-0788085518-6a37c52bd548.json"
 
 load_dotenv()
 
