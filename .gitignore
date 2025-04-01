@@ -8,3 +8,4 @@ test/testcuda.py
 test/cse_download.py
 .env
 gen-lang-client-0788085518-6a37c52bd548.json
+data/
