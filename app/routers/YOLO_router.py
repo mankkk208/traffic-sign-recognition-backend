@@ -11,6 +11,7 @@ from app.routers.yolo_detector import YOLODetector
 
 CONFIDENCE_THRESHOLD = 0.8
 GPT_PREDICT_URL = "http://localhost:8000/gpt/predict/"
+GEMINI_PREDICT_URL = "http://localhost:8000/gemini/predict/"
 
 # Load YOLO model
 yolo_model_path = 'app/models/yolo/yolov11m_finetune230325/weights/best.pt'
@@ -55,17 +56,29 @@ async def predict_yolo(file: UploadFile = File(...)):
         if detected_signs:
             return JSONResponse(content={"prediction": ", ".join(detected_signs)})
         
-        # Nếu không có kết quả hoặc độ tin cậy thấp, chuyển sang GPT
+        # Nếu không có kết quả hoặc độ tin cậy thấp, chuyển sang Gemini
         file_buffer.seek(0)
         files = {"file": (file.filename, file_buffer, file.content_type)}
         async with httpx.AsyncClient() as http_client:
-            gpt_response = await http_client.post(
-                GPT_PREDICT_URL,
+            gemini_response = await http_client.post(
+                GEMINI_PREDICT_URL,
                 files=files,
                 timeout=30.0
             )
-            print(gpt_response.json())
-            return gpt_response.json()
+            print(gemini_response.json())
+            return gemini_response.json()
+
+        # # Nếu không có kết quả hoặc độ tin cậy thấp, chuyển sang GPT
+        # file_buffer.seek(0)
+        # files = {"file": (file.filename, file_buffer, file.content_type)}
+        # async with httpx.AsyncClient() as http_client:
+        #     gpt_response = await http_client.post(
+        #         GPT_PREDICT_URL,
+        #         files=files,
+        #         timeout=30.0
+        #     )
+        #     print(gpt_response.json())
+        #     return gpt_response.json()
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) from e
