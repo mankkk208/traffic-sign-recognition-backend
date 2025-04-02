@@ -9,8 +9,8 @@ app = FastAPI()
 
 # Cấu hình CORS chi tiết hơn
 origins = [
-    "http://localhost:80",
-    "http://127.0.0.1:80",
+    "http://26.76.138.133:3000",
+    "http://10.50.151.157:3000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "http://localhost:8000",

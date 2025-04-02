@@ -8,10 +8,16 @@ import httpx
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
 from app.routers.yolo_detector import YOLODetector
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Get base URL from environment variables
+BASE_URL = os.getenv("BASE_URL")
 
 CONFIDENCE_THRESHOLD = 0.8
-GPT_PREDICT_URL = "http://localhost:8000/gpt/predict/"
-GEMINI_PREDICT_URL = "http://localhost:8000/gemini/predict/"
+GPT_PREDICT_URL = f"{BASE_URL}/gpt/predict/"
+GEMINI_PREDICT_URL = f"{BASE_URL}/gemini/predict/"
 
 # Load YOLO model
 yolo_model_path = 'app/models/yolo/yolov11m_finetune230325/weights/best.pt'

@@ -31,3 +31,4 @@ def upload_to_gcs(bucket_name: str, file_stream: io.BytesIO, destination_blob_na
     except Exception as e:
         print(f"Lỗi khi upload file lên GCS: {e}")
         return None
+    

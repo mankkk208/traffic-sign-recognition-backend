@@ -8,8 +8,10 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./app ./app
+# Copy the entire project including .env
+COPY . .
 
 EXPOSE 8000
 
-CMD ["fastapi", "dev", "app/main.py", "--port", "8000"]
+# Fix the CMD to use uvicorn instead of fastapi
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
