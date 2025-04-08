@@ -20,8 +20,13 @@ This project is designed to recognize traffic signs using machine learning techn
    pip install -r requirements.txt
    ```
 
-# Chạy container
-docker run -p 8000:8000 mankkk/traffic-sign-recognition
+# Deploy to google artifact registry
+```bash
+docker build -t us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest .
+docker push us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest
+gcloud run deploy traffic-sign-recognition-backend --image us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest --platform managed --region us-central1 --allow-unauthenticated --memory 8Gi --cpu 2
+```
+
 
 ## Usage
 First you need to run the `yolo_train.py` to train and create our models.
