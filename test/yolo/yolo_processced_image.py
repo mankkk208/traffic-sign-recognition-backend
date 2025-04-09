@@ -5,8 +5,8 @@ import os
 from glob import glob
 
 # Đường dẫn thư mục
-IMAGE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\augmented\val\images"
-SAVE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\processed\images\val"
+IMAGE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\val\images"
+SAVE_DIR = r"C:\Users\Lenovo\Desktop\817\Data\val\images_processed"
 
 # Tạo thư mục lưu ảnh đã tiền xử lý
 os.makedirs(SAVE_DIR, exist_ok=True)
