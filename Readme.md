@@ -19,16 +19,26 @@ This project is designed to recognize traffic signs using machine learning techn
    ```bash
    pip install -r requirements.txt
    ```
+6. Run the project local
+   ```bash
+   fastapi dev
+   ```
 
-# Deploy to google artifact registry
+## Deploy to google artifact registry
 ```bash
 docker build -t us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest .
+```
+
+```bash
 docker push us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest
+```
+
+```bash
 gcloud run deploy traffic-sign-recognition-backend --image us-central1-docker.pkg.dev/gen-lang-client-0788085518/traffic-sign-recognition-backend/traffic-sign-recognition-backend:latest --platform managed --region us-central1 --allow-unauthenticated --memory 8Gi --cpu 2
 ```
 
 
-## Usage
+## Cách Train Model
 First you need to run the `yolo_train.py` to train and create our models.
 To run the traffic sign recognition model, execute the following command:
 ```bash
@@ -53,7 +63,7 @@ gcloud config set project [PROJECT_ID]
    ```
    Tải dataset lên GCS
    ```bash
-   gsutil cp data/gemini/path-to-dataset gs://your-bucket-name/train_data.jsonl
+   gsutil cp data/gemini/path-to-dataset gs://your-bucket-name/
    ```
 2. Cấp quyền và huấn luyện model
    Truy cập vào https://console.cloud.google.com/
