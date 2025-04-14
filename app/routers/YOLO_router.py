@@ -3,7 +3,7 @@ import os
 import io
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ExifTags
 import httpx
 import base64
 from fastapi import APIRouter, UploadFile, File, HTTPException
@@ -22,12 +22,31 @@ yolo_detector = YOLODetector(model_path=yolo_model_path, conf_threshold=CONFIDEN
 
 yolo_router = APIRouter()
 
+def apply_exif_orientation(image: Image.Image) -> Image.Image:
+    try:
+        exif = image._getexif()
+        if exif is not None:
+            orientation_key = next(
+                key for key, val in ExifTags.TAGS.items() if val == 'Orientation'
+            )
+            orientation = exif.get(orientation_key)
+            if orientation == 3:
+                image = image.rotate(180, expand=True)
+            elif orientation == 6:
+                image = image.rotate(270, expand=True)
+            elif orientation == 8:
+                image = image.rotate(90, expand=True)
+    except Exception:
+        pass
+    return image
+
 @yolo_router.post("/predict/")
 async def predict_yolo(file: UploadFile = File(...)):
     try:
         file_contents = await file.read()
         file_buffer = io.BytesIO(file_contents)
         image = Image.open(file_buffer)
+        image = apply_exif_orientation(image)  # 🆕 xử lý xoay nếu có EXIF
         image_np = np.array(image)
 
         # Kiểm tra định dạng ảnh (Grayscale hoặc RGBA) và chuyển về BGR
